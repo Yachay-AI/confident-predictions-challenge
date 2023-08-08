@@ -27,15 +27,17 @@ jobs:
           python test.py ${{ secrets.TEST_FIILE_URL }}
 
       - name: Publish output to comments
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.createComment({
+            const output = `#### Check results:\`
+            ${{ steps.checks.outputs.output }}`;
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '```' + JSON.stringify(${{ steps.checks.outputs.result }}) + '```
+              body: output
             })
 
 
