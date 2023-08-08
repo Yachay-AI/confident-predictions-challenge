@@ -29,7 +29,7 @@ jobs:
       - name: Publish output to comments
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TOKEN }}
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
