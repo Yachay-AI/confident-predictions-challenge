@@ -31,13 +31,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Check results:\`
-            ${{ steps.checks.outputs.output }}`;
+            const output = `#### Check Results: \`${{ steps.checks.outputs.output }}\`\n
+            *Pusher: @${{ github.actor }}*`;
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: output
             })
-
-
