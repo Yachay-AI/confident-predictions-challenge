@@ -1,3 +1,4 @@
+import os
 import sys
 import pandas as pd
 import numpy as np
@@ -24,27 +25,37 @@ def CIR(y_before, y_after, verbose=False):
 
     CIR = np.average(scores, weights=weights)
     return CIR
-
-# Load the data from a Parquet file into a pandas DataFrame.
-data_frame = pd.read_csv(sys.argv[1], index_col=0)
-
-answer = pd.read_csv('submission.csv', header=None)[0]
-
-# Determine the number of top records to consider for computing mean distance.
-top_records_count = int(0.1 * len(data_frame))
-
-if len(answer) != top_records_count:
-    print(f'Submission file must include {top_records_count} ids. Found {len(answer)} ids.')
-    raise ValueError()
     
-sorted_data_frame = data_frame.loc[answer]
+if os.path.isfile('submission.csv'):
+    # Load the data from a Parquet file into a pandas DataFrame.
+    if sys.argv[1].find('.csv') != -1:
+        data_frame = pd.read_csv(sys.argv[1], index_col=0)
+    elif sys.argv[1].find('.parquet') != -1:
+        data_frame = pd.read_parquet(sys.argv[1])
+    else:
+        print('Please specify test file as first argument, it must be in csv or parquet format')
+        raise ValueError()
 
 
-# Compute and print the mean of the 'distance' column for the top 10% records.
-mean_distance = sorted_data_frame.iloc[:top_records_count]['distance'].mean()
-#print(mean_distance)
+    answer = pd.read_csv('submission.csv', header=None)[0]
 
-# Compute and print Class Imbalance Ratio
-cir = CIR(data_frame['label'], sorted_data_frame.iloc[:top_records_count]['label'])
+    # Determine the number of top records to consider for computing mean distance.
+    top_records_count = int(0.1 * len(data_frame))
 
-print(f'Submission scores: Mean distance={mean_distance:.2f}, Class Imbalance Ratio={cir:.2f}')
+    if len(answer) != top_records_count:
+        print(f'Submission file must include {top_records_count} ids. Found {len(answer)} ids.')
+        raise ValueError()
+        
+    sorted_data_frame = data_frame.loc[answer]
+
+
+    # Compute and print the mean of the 'distance' column for the top 10% records.
+    mean_distance = sorted_data_frame.iloc[:top_records_count]['distance'].mean()
+    #print(mean_distance)
+
+    # Compute and print Class Imbalance Ratio
+    cir = CIR(data_frame['label'], sorted_data_frame.iloc[:top_records_count]['label'])
+
+    print(f'Submission scores: Mean distance={mean_distance:.2f}, Class Imbalance Ratio={cir:.2f}')
+else:
+    print('Could not find submission.csv file in the root folder, skipping')
