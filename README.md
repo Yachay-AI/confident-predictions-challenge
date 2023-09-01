@@ -10,7 +10,7 @@ Your challenge is to design a model capable of selecting the top 10% of predicti
 The primary metric for this challenge is the mean distance of the selected top 10% predictions. Your objective is to minimize this value. As a secondary metric, the Class Representation Index (CRI) has been designed to evaluate how well the class distribution is preserved after a filtering operation is applied to a multi-class dataset, such as the selection of the most confident predictions in a classification model. In essence, CRI compares the class distribution before and after the filtering operation, giving a higher weight to classes that were initially larger. The primary purpose of this metric is to detect cases where a class is significantly less represented after filtering compared to its original size.
 
 ## Dataset 
-[**Link to GDrive with dataset.**](https://drive.google.com/drive/folders/1KrB9mhCk5aOUOeltRZNl7Ph2VSoRDPZ3)
+[**Link to GDrive with dataset.**](https://drive.google.com/drive/folders/1RQFjtPr_EEAKrcr1BxjrA4CorEZTYgdl?usp=sharing)
 The dataset is sizable, with a total of 615,000 instances.
 
 The dataset is composed of four primary components:
@@ -33,7 +33,7 @@ CRI = 0.584
 ```
 
 ## Submission instructions
-1. **Fork the Repository**: Start by forking the repository.
+1. **Fork the Repository**: Start by [forking the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
 
 1. **Edit the Baseline Algorithm**: Make your improvements to the \`**baseline.py**\` file.
 
@@ -48,7 +48,7 @@ CRI = 0.584
 
 This will produce the \`**submission.csv**\` file. Ensure the file name remains as \`**submission.csv**\` as it's crucial for the evaluation process.
 
-5. **Create a Pull Request**: Submit a pull request with your modified code and the \`**submission.csv**\` file. An automated script will evaluate your submission and post the results as a comment on your pull request.
+5. **Create a Pull Request**: Create your branch `<you name>-submission` with your modified code and the \`**submission.csv**\` file and [submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). An automated script will evaluate your submission and post the results as a comment on your pull request.
 
 
 **&#9432;** **Note**: While the use of both textual features and raw predictions can potentially lead to better-performing models, this is not a mandatory requirement. Participants are encouraged to explore different strategies, which may include focusing solely on the text data, the raw predictions, or a combination of both.
