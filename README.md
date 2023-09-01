@@ -33,20 +33,20 @@ CRI = 0.584
 ```
 
 ## Submission instructions
-1. Fork the Repository: Start by forking the repository.
+1. **Fork the Repository**: Start by forking the repository.
 
-1. Edit the Baseline Algorithm: Make your improvements to the baseline.py file.
+1. **Edit the Baseline Algorithm**: Make your improvements to the `**baseline.py**` file.
 
-1. Test on the Validation Set: You can evaluate your algorithm's performance on the validation set using the following commands:
-- To produce the submission.csv file: `python baseline.py relevance_challenge_valid.parquet`
+1. **Test on the Validation Set**: You can evaluate your algorithm's performance on the validation set using the following commands:
+- To produce the `**submission.csv**` file: `python baseline.py relevance_challenge_valid.parquet`
 - To display the scores: `python test.py relevance_challenge_valid.parquet`
 
-1. Run Predictions on the Test Set: Once satisfied with your algorithm's performance on the validation set, run predictions for the test set:
+4. **Run Predictions on the Test Set**: Once satisfied with your algorithm's performance on the validation set, run predictions for the test set:
 `python baseline.py relevance_challenge_test.parquet`
 
-This will produce the submission.csv file. Ensure the file name remains as submission.csv as it's crucial for the evaluation process.
+This will produce the `**submission.csv**` file. Ensure the file name remains as `**submission.csv**` as it's crucial for the evaluation process.
 
-1. Create a Pull Request: Submit a pull request with your modified code and the submission.csv file. An automated script will evaluate your submission and post the results as a comment on your pull request.
+5. **Create a Pull Request**: Submit a pull request with your modified code and the `**submission.csv**` file. An automated script will evaluate your submission and post the results as a comment on your pull request.
 
 
 **&#9432;** **Note**: While the use of both textual features and raw predictions can potentially lead to better-performing models, this is not a mandatory requirement. Participants are encouraged to explore different strategies, which may include focusing solely on the text data, the raw predictions, or a combination of both.
