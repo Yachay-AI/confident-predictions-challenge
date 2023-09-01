@@ -38,11 +38,13 @@ CRI = 0.584
 1. **Edit the Baseline Algorithm**: Make your improvements to the \`**baseline.py**\` file.
 
 1. **Test on the Validation Set**: You can evaluate your algorithm's performance on the validation set using the following commands:
-- To produce the \`**submission.csv**\` file: `python baseline.py relevance_challenge_valid.parquet`
-- To display the scores: `python test.py relevance_challenge_valid.parquet`
+- To produce the \`**submission.csv**\` file: 
+```python baseline.py relevance_challenge_valid.parquet```
+- To display the scores: 
+```python test.py relevance_challenge_valid.parquet```
 
 4. **Run Predictions on the Test Set**: Once satisfied with your algorithm's performance on the validation set, run predictions for the test set:
-`python baseline.py relevance_challenge_test.parquet`
+```python baseline.py relevance_challenge_test.parquet```
 
 This will produce the \`**submission.csv**\` file. Ensure the file name remains as \`**submission.csv**\` as it's crucial for the evaluation process.
 
