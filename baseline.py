@@ -8,9 +8,8 @@ def softmax(x):
     # Compute the softmax values by dividing the exponential of each element by the sum of exponentials
     return exps / np.sum(exps)
 
-
 # Load the data from a Parquet file into a pandas DataFrame.
-data_frame = pd.read_parquet('relevance_challenge_test.parquet')
+data_frame = pd.read_parquet(sys.argv[1])
 
 # Initialize an empty list to store the maximum confidence values.
 max_confidences = []
