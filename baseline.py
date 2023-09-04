@@ -8,7 +8,6 @@ def softmax(x):
     # Compute the softmax values by dividing the exponential of each element by the sum of exponentials
     return exps / np.sum(exps)
 
-
 # Load the data from a Parquet file into a pandas DataFrame.
 data_frame = pd.read_parquet(sys.argv[1])
 
