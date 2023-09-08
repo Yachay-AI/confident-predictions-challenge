@@ -6,8 +6,8 @@ Welcome to the Confident Predictions Selection Machine Learning Challenge! The g
 - CRI
 
 ## Challange Task
-Your challenge is to design a model capable of selecting the top 10% of predictions that will exhibit the smallest mean distance. You have the option to work with either or both of the text data and raw predictions. Additionally, you may perform any form of aggregation or transformation on the raw predictions as you see fit.
-The primary metric for this challenge is the mean distance of the selected top 10% predictions. Your objective is to minimize this value. As a secondary metric, the Class Representation Index (CRI) has been designed to evaluate how well the class distribution is preserved after a filtering operation is applied to a multi-class dataset, such as the selection of the most confident predictions in a classification model. In essence, CRI compares the class distribution before and after the filtering operation, giving a higher weight to classes that were initially larger. The primary purpose of this metric is to detect cases where a class is significantly less represented after filtering compared to its original size.
+Your challenge is to design a model capable of selecting the top 10% predictions with the smallest mean distance. You have the option to work with either or both of the text data and raw predictions. Additionally, you may perform any form of aggregation or transformation on the raw predictions as you see fit.
+The primary metric for this challenge is the mean distance of the selected top 10% predictions. Your objective is to minimize this value. As a secondary metric, the Class Representation Index (CRI) has been designed to evaluate how well the class distribution is preserved after a filtering operation on a multi-class dataset. CRI compares the class distribution before and after filtering, giving a higher weight to classes that were initially larger. The primary purpose of this metric is to detect cases where a class is significantly less represented after filtering compared to its original size.
 
 ## Dataset 
 [**Link to GDrive with dataset.**](https://drive.google.com/drive/folders/1RQFjtPr_EEAKrcr1BxjrA4CorEZTYgdl?usp=sharing)
@@ -24,7 +24,7 @@ The dataset is composed of four primary components:
 The data will be divided into training, development, and test datasets, with an 80/10/10 distribution, respectively. Full access will be provided to the training and development datasets, while the test set will be made available without the true distance and true label for evaluation purposes.
 
 ## Baseline Solution
-The baseline solution for this challenge involves the calculation of the model's confidence as the maximum probability, which is derived from the softmax function applied to the raw prediction logits.
+The baseline solution for this challenge involves calculation of the model's confidence as the maximum probability, which is derived from the softmax function applied to raw prediction logits.
 The baseline's validation scores are as follows:
 
 ```
