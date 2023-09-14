@@ -1,5 +1,20 @@
+|Ask questions | <a href="https://discord.gg/msWFtcfmwe"><img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white"></img></a>|
+| :------------ | :-------------------------------------------------------------------------------------------------------- |
+
+<p align="center">
+<img src="yachaylogo.png" width="400" height="100" /> 
+</p>
+
+<p align="center">
+<img src="https://img.shields.io/badge/Hackathon%20prize-$500-green.svg" /> 
+<img src="https://img.shields.io/badge/Due%20date-25%20November%202023-red.svg" /> 
+<a href="https://github.blog/2023-07-13-release-radar-spring-23/#yachay-ai-1-0"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></img></a>
+</p>
+
 # Confident Predictions Selection: A Machine Learning Challenge
 Welcome to the Confident Predictions Selection Machine Learning Challenge! The goal of this challenge is to construct a model or an algorithm that excels in selecting the top 10% of predictions with the lowest mean distance (error), derived from a previously trained machine learning model. Participants have the option to utilize either or both of two types of data provided: text data and raw model prediction outputs.
+
+**&#9432;** The due date for submissions is `25 November 2023`. The challenge prize is `$500` for the best pull request with improved validation metrics scores.
 
 ## Validation metrics 
 - Mean Distance 
@@ -10,7 +25,11 @@ Your challenge is to design a model capable of selecting the top 10% predictions
 The primary metric for this challenge is the mean distance of the selected top 10% predictions. Your objective is to minimize this value. As a secondary metric, the Class Representation Index (CRI) has been designed to evaluate how well the class distribution is preserved after a filtering operation on a multi-class dataset. CRI compares the class distribution before and after filtering, giving a higher weight to classes that were initially larger. The primary purpose of this metric is to detect cases where a class is significantly less represented after filtering compared to its original size.
 
 ## Dataset 
-[**Link to GDrive with dataset.**](https://drive.google.com/drive/folders/1RQFjtPr_EEAKrcr1BxjrA4CorEZTYgdl?usp=sharing)
+
+
+| Dataset | [![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/drive/folders/1RQFjtPr_EEAKrcr1BxjrA4CorEZTYgdl?usp=sharing) |
+| :------------ | :-------------------------------------------------------------------------------------------------------- |
+
 The dataset is sizable, with a total of 615,000 instances.
 
 The dataset is composed of four primary components:
@@ -48,7 +67,7 @@ CRI = 0.584
 
 This will produce the \`**submission.csv**\` file. Ensure the file name remains as \`**submission.csv**\` as it's crucial for the evaluation process.
 
-5. **Create a Pull Request**: Create your branch `<you name>-submission` with your modified code and the \`**submission.csv**\` file and [submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). An automated script will evaluate your submission and post the results as a comment on your pull request.
+5. **Create a Pull Request**: Create your branch `<your name>-submission` with your modified code and the \`**submission.csv**\` file and [submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). An automated script will evaluate your submission and post the results as a comment on your pull request.
 
 
 **&#9432;** **Note**: While the use of both textual features and raw predictions can potentially lead to better-performing models, this is not a mandatory requirement. Participants are encouraged to explore different strategies, which may include focusing solely on the text data, the raw predictions, or a combination of both.
