@@ -4,6 +4,7 @@ on:
   pull_request_target:
     branches:
       - main
+    types: [labeled]
 
 permissions:
   contents: read
