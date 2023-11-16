@@ -67,7 +67,7 @@ CRI = 0.584
 
 This will produce the \`**submission.csv**\` file. Ensure the file name remains as \`**submission.csv**\` as it's crucial for the evaluation process.
 
-5. **Create a Pull Request**: Create your branch `<your name>-submission` with your modified code and the \`**submission.csv**\` file and [submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). An automated script will evaluate your submission and post the results as a comment on your pull request.
+5. **Create a Pull Request**: Create a pull request from your fork with the modified code and the \`**submission.csv**\` file and [submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). An automated script will evaluate your submission and post the results as a comment on your pull request.
 
 
 **&#9432;** **Note**: While the use of both textual features and raw predictions can potentially lead to better-performing models, this is not a mandatory requirement. Participants are encouraged to explore different strategies, which may include focusing solely on the text data, the raw predictions, or a combination of both.
