@@ -47,7 +47,7 @@ data_frame[columns] = data_frame['softmax'].copy().tolist()
 
 data_frame['pred'] = [x.argmax() for x in data_frame['raw_prediction']]
 
-X = data_frame.drop(['text', 'coordinates', 'label', 'raw_prediction', 'softmax', 'distance', 'confidence'],
+X = data_frame.drop(['text', 'raw_prediction', 'softmax', 'confidence'],
                     axis=1)
 pred = model.predict(X)
 data_frame['score'] = pred
