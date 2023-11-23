@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+import sys
+from joblib import load
+
 
 def softmax(x):
     # Compute the exponential values for each element in the input array
@@ -7,6 +10,12 @@ def softmax(x):
 
     # Compute the softmax values by dividing the exponential of each element by the sum of exponentials
     return exps / np.sum(exps)
+
+def transform_array(arr, length):
+    if len(arr) > length:
+        return arr[:length]  # Truncate
+    else:
+        return np.pad(arr, (0, length - len(arr)), 'constant')  # Pad
 
 
 # Load the data from a Parquet file into a pandas DataFrame.
@@ -23,12 +32,18 @@ for _, row in data_frame.iterrows():
     # Find the maximum confidence value and append it to the list.
     max_confidences.append(softmax_values.max())
 
+model = load('linear_model.joblib')
+
 # Add a new column 'confidence' to the DataFrame using the list of maximum confidence values.
 data_frame['confidence'] = max_confidences
-data_frame['pred'] = [x.argmax() for x in data_frame['raw_prediction']]
+X = np.stack(data_frame['raw_prediction'])
+print(X.shape)
+data_frame['pred'] = model.predict(X)
+
+#data_frame['pred'] = [x.argmax() for x in data_frame['raw_prediction']]
 
 # Sort the DataFrame by 'confidence' in descending order.
-sorted_data_frame = data_frame.sort_values(by='confidence', ascending=False)
+sorted_data_frame = data_frame.sort_values(by='pred', ascending=False)
 
 # Determine the number of top records to consider for computing mean distance.
 top_records_count = int(0.1 * len(data_frame))

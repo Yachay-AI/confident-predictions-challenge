@@ -2,3 +2,6 @@ PyGithub==1.58.1
 requests==2.30.0
 pandas==1.5.3
 scikit-learn==1.2.2
+pyarrow
+fastparquet
+matplotlib
