@@ -32,7 +32,7 @@ for _, row in data_frame.iterrows():
     # Find the maximum confidence value and append it to the list.
     max_confidences.append(softmax_values.max())
 
-model = load('linear_model.joblib')
+model = load('xgboost_model.joblib')
 
 # Add a new column 'confidence' to the DataFrame using the list of maximum confidence values.
 data_frame['confidence'] = max_confidences
