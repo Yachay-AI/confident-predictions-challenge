@@ -38,6 +38,8 @@ model = load('xgboost_model.joblib')
 data_frame['confidence'] = max_confidences
 X = np.stack(data_frame['raw_prediction'])
 
+
+# Basic statistical features
 mean_confidence = np.mean(X, axis=1)
 std_confidence = np.std(X, axis=1)
 max_confidence = np.max(X, axis=1)
@@ -45,13 +47,41 @@ min_confidence = np.min(X, axis=1)
 sum_confidence = np.sum(X, axis=1)
 median_confidence = np.median(X, axis=1)
 
+# Additional percentiles
+percentile_25 = np.percentile(X, 25, axis=1)
+percentile_75 = np.percentile(X, 75, axis=1)
+percentile_10 = np.percentile(X, 10, axis=1)
+percentile_90 = np.percentile(X, 90, axis=1)
 
+# Indices (positions) of max, min, median
+argmax_confidence = np.argmax(X, axis=1)
+argmin_confidence = np.argmin(X, axis=1)
+argmedian_confidence = np.argmin(np.abs(X - np.median(X, axis=1, keepdims=True)), axis=1)
+
+# Skewness and Kurtosis
 skew_confidence = np.apply_along_axis(lambda x: scipy.stats.skew(x), axis=1, arr=X)
 kurtosis_confidence = np.apply_along_axis(lambda x: scipy.stats.kurtosis(x), axis=1, arr=X)
 
-# Combine these new features into a single 2D array
-new_features = np.column_stack((mean_confidence, std_confidence, max_confidence, min_confidence, sum_confidence, median_confidence, skew_confidence, kurtosis_confidence))
+# Range (max - min)
+range_confidence = max_confidence - min_confidence
 
+# Mean Absolute Deviation (MAD)
+mad_confidence = np.mean(np.abs(X - np.mean(X, axis=1, keepdims=True)), axis=1)
+
+
+
+# Cumulative Sum and Product
+cumulative_sum_confidence = np.cumsum(X, axis=1).mean(axis=1)
+
+# Difference Between Consecutive Features and Moving Average
+difference_confidence = np.diff(X, axis=1).mean(axis=1)
+
+# Combine all features into a single 2D array
+new_features = np.column_stack(
+    (mean_confidence, std_confidence, max_confidence, min_confidence, sum_confidence,
+     median_confidence, percentile_25, percentile_75, percentile_10, percentile_90,
+     argmax_confidence, argmin_confidence, argmedian_confidence, skew_confidence, kurtosis_confidence,
+     range_confidence, mad_confidence, cumulative_sum_confidence, difference_confidence))
 
 
 

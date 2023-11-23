@@ -52,10 +52,12 @@ if os.path.isfile('submission.csv'):
     # Compute and print the mean of the 'distance' column for the top 10% records.
     mean_distance = sorted_data_frame.iloc[:top_records_count]['distance'].mean()
     #print(mean_distance)
+    sorted_df_absolute_min = data_frame.sort_values(by='distance', ascending=True).iloc[:len(answer)]
 
     # Compute and print Class Imbalance Ratio
     cir = CIR(data_frame['label'], sorted_data_frame.iloc[:top_records_count]['label'])
 
     print(f'Submission scores: Mean distance={mean_distance:.2f}, Class Imbalance Ratio={cir:.2f}')
+    print(f"Absolute min distance={sorted_df_absolute_min['distance'].mean():.2f}, len={len(sorted_df_absolute_min)}")
 else:
     print('Could not find submission.csv file in the root folder, skipping')
