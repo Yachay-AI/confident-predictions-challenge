@@ -76,12 +76,32 @@ cumulative_sum_confidence = np.cumsum(X, axis=1).mean(axis=1)
 # Difference Between Consecutive Features and Moving Average
 difference_confidence = np.diff(X, axis=1).mean(axis=1)
 
+
+# Softmax operation
+softmax_confidence = scipy.special.softmax(X, axis=1)
+
+# Taking top 5 values after Softmax
+top_5_softmax = np.sort(softmax_confidence, axis=1)[:, -5:]
+
+# Features for each of the top 5 softmax values
+top_1_softmax = top_5_softmax[:, -1]
+top_2_softmax = top_5_softmax[:, -2]
+top_3_softmax = top_5_softmax[:, -3]
+top_4_softmax = top_5_softmax[:, -4]
+top_5_softmax = top_5_softmax[:, -5]
+
+
 # Combine all features into a single 2D array
 new_features = np.column_stack(
     (mean_confidence, std_confidence, max_confidence, min_confidence, sum_confidence,
      median_confidence, percentile_25, percentile_75, percentile_10, percentile_90,
      argmax_confidence, argmin_confidence, argmedian_confidence, skew_confidence, kurtosis_confidence,
-     range_confidence, mad_confidence, cumulative_sum_confidence, difference_confidence))
+     range_confidence, mad_confidence, cumulative_sum_confidence, difference_confidence,
+    top_1_softmax, top_2_softmax, top_3_softmax, top_4_softmax, top_5_softmax))
+
+
+
+
 
 
 

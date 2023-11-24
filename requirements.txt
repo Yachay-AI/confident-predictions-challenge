@@ -6,3 +6,4 @@ pyarrow
 fastparquet
 matplotlib
 xgboost
+catboost
