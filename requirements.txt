@@ -7,3 +7,7 @@ fastparquet
 matplotlib
 xgboost
 catboost
+nltk
+textblob
+textstat
+gensim

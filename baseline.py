@@ -100,8 +100,74 @@ new_features = np.column_stack(
     top_1_softmax, top_2_softmax, top_3_softmax, top_4_softmax, top_5_softmax))
 
 
+import pandas as pd
+import numpy as np
+import nltk
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from textblob import TextBlob
+import textstat
+from gensim.models import Word2Vec
+from collections import Counter
+
+# Ensure the necessary NLTK data is downloaded
+nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+
+def extract_features(df, text_column):
+    # Helper functions for different features
+    def length_based_features(text):
+        chars = len(text)
+        words = len(text.split())
+        avg_word_length = chars / words if words else 0
+        return [chars, words, avg_word_length]
+
+    def pos_features(text):
+        words = nltk.word_tokenize(text)
+        pos_tags = nltk.pos_tag(words)
+        pos_counts = Counter(tag for word, tag in pos_tags)
+        return list(pos_counts.values())
+
+    def ner_features(text):
+        words = nltk.word_tokenize(text)
+        pos_tags = nltk.pos_tag(words)
+        named_ents = nltk.ne_chunk(pos_tags, binary=True)
+        return len([chunk for chunk in named_ents if hasattr(chunk, 'label') and chunk.label() == 'NE'])
+
+    def sentiment_score(text):
+        return TextBlob(text).sentiment.polarity
+
+    def readability_scores(text):
+        flesch_reading = textstat.flesch_reading_ease(text)
+        gunning_fog = textstat.gunning_fog(text)
+        return [flesch_reading, gunning_fog]
+
+    # Initialize lists to store each feature
+    lengths, sentiments, readabilities, ners = [], [], [], []
+
+    # Iterate through each text entry and extract features
+    for text in df[text_column]:
+        lengths.append(length_based_features(text))
+        sentiments.append(sentiment_score(text))
+        readabilities.append(readability_scores(text))
+        ners.append(ner_features(text))
+
+    # Convert lists to NumPy arrays
+    lengths = np.array(lengths)
+    sentiments = np.array(sentiments).reshape(-1, 1)
+    readabilities = np.array(readabilities)
+    ners = np.array(ners).reshape(-1, 1)
+
+    # Concatenate all features into a single array
+    features = np.concatenate([lengths, sentiments, readabilities, ners], axis=1)
+
+    return features
 
 
+text_features = extract_features(data_frame, 'text')
+
+new_features = np.column_stack((new_features, text_features))
 
 
 
