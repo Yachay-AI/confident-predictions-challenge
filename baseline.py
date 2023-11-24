@@ -170,7 +170,6 @@ text_features = extract_features(data_frame, 'text')
 new_features = np.column_stack((new_features, text_features))
 
 
-
 data_frame['pred'] = model.predict(new_features)
 
 #data_frame['pred'] = [x.argmax() for x in data_frame['raw_prediction']]
