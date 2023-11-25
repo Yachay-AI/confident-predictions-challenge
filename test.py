@@ -36,7 +36,6 @@ if os.path.isfile('submission.csv'):
         print('Please specify test file as first argument, it must be in csv or parquet format')
         raise ValueError()
 
-    print(data_frame.head())
     answer = pd.read_csv('submission.csv', header=None)[0]
 
     # Determine the number of top records to consider for computing mean distance.
