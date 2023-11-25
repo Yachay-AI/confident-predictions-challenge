@@ -1,34 +1,35 @@
 import pandas as pd
 import numpy as np
-
-def softmax(x):
-    # Compute the exponential values for each element in the input array
-    exps = np.exp(x - np.max(x))
-
-    # Compute the softmax values by dividing the exponential of each element by the sum of exponentials
-    return exps / np.sum(exps)
+import sys
+from joblib import load
 
 
-# Load the data from a Parquet file into a pandas DataFrame.
+def load_sklearn_model(model_path):
+    return load(model_path)
+
 data_frame = pd.read_parquet(sys.argv[1])
 
-# Initialize an empty list to store the maximum confidence values.
-max_confidences = []
+xgb_model = load_sklearn_model('xgb_model.joblib')
+lgb_model = load_sklearn_model('lgb_model.joblib')
 
-# Iterate over the DataFrame rows.
-for _, row in data_frame.iterrows():
-    # Compute softmax for the 'raw_prediction' column of the current row.
-    softmax_values = softmax(row['raw_prediction'])
-    
-    # Find the maximum confidence value and append it to the list.
-    max_confidences.append(softmax_values.max())
+data_frame = data_frame[['text', 'raw_prediction', 'confidence']]
+data_frame['text_length'] = data_frame['text'].apply(len)
+data_frame['word_count'] = data_frame['text'].apply(lambda x: len(x.split()))
+data_frame['hashtag_count'] = data_frame['text'].apply(lambda x: x.count('@'))
+data_frame['link_count'] = data_frame['text'].apply(lambda x: x.count('https://'))
+data_frame['exclamation_count'] = data_frame['text'].apply(lambda x: x.count('!'))
+data_frame['question_count'] = data_frame['text'].apply(lambda x: x.count('?'))
+data_frame = data_frame.join(data_frame['raw_prediction'].apply(pd.Series).add_prefix('raw_prediction_'))
+data_frame.drop(['text'], axis=1, inplace=True)
+rp = data_frame.raw_prediction
+data_frame.drop(['raw_prediction'], axis=1, inplace=True)
 
 # Add a new column 'confidence' to the DataFrame using the list of maximum confidence values.
-data_frame['confidence'] = max_confidences
-data_frame['pred'] = [x.argmax() for x in data_frame['raw_prediction']]
+data_frame['pred_distance'] = (lgb_model.predict(data_frame) + xgb_model.predict(data_frame)) / 2
+data_frame['pred'] = [x.argmax() for x in rp]
 
 # Sort the DataFrame by 'confidence' in descending order.
-sorted_data_frame = data_frame.sort_values(by='confidence', ascending=False)
+sorted_data_frame = data_frame.sort_values(by='pred_distance', ascending=True)
 
 # Determine the number of top records to consider for computing mean distance.
 top_records_count = int(0.1 * len(data_frame))
